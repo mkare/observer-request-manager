@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Observer Request Manager</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <main>
+      <header>
+        <h1>Observer Request Manager</h1>
+        <nav>
+          <button id="getPosts"><span>Get Posts</span></button>
+          <button id="getPostComments"><span>Get Post Comments</span></button>
+          <button id="getCommentsByPostId">
+            <span>Get Comments By Post Id</span>
+          </button>
+          <button id="createPost"><span>Create Post</span></button>
+          <button id="patchPost"><span>Patch Post</span></button>
+          <button id="deletePost"><span>Delete Post</span></button>
+          <button id="getTodos"><span>Get Todos</span></button>
+          <button id="createTodo"><span>Create Todo</span></button>
+        </nav>
+      </header>
+      <section class="result">
+        <div id="status"></div>
+        <pre id="data"></pre>
+      </section>
+    </main>
+    <script src="bundle.js"></script>
+  </body>
+</html>

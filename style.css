@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Poppins:wght@200&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 200;
+  line-height: 1.5;
+  margin: 0;
+  padding: 1.5rem;
+  background-color: #c7ecee;
+}
+
+pre {
+  font-family: "Cutive Mono", monospace;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  /* background-color: #0a3d62; */
+  background-color: #22a6b3;
+  color: #f6e58d;
+  border: 1px solid white;
+  padding: 1rem;
+  overflow: auto;
+  max-height: 60vh;
+}
+
+#status {
+  font-size: 1.25rem;
+  font-weight: 200;
+  font-style: italic;
+  margin: 2rem 0 0;
+}
+
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  margin: 0 0 1rem;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 0.35rem;
+  max-width: 50rem;
+}
+
+button {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 200;
+  padding: 0.5rem 1rem;
+  border: 1px solid #22a6b3;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #dff9fb;
+  color: #187e87;
+}
