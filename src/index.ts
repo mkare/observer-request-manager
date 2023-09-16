@@ -2,6 +2,7 @@ import { DataObserver } from "./requests/observer";
 import { RequestState } from "./requests/types";
 import { StateDisplay } from "./requests/stateDisplay";
 import {
+  getPost,
   getPosts,
   getPostComments,
   getCommentsByPostId,
@@ -10,6 +11,7 @@ import {
   deletePost,
   getTodos,
   createTodo,
+  privateResource,
 } from "./requests/api";
 
 const stateDisplay = new StateDisplay();
@@ -32,11 +34,47 @@ function handleRequest(promise: Promise<any>) {
   observer.update(loadingState);
 
   promise
-    .then(handleResponse)
+    .then((response) => {
+      if (response.status === "not-found") {
+        handleNotFound(response);
+      } else {
+        handleResponse(response);
+      }
+    })
     .catch(handleError)
     .finally(() => {
       console.log("Request complete!");
     });
+}
+
+// Handle API response
+function handleResponse(responseData: any) {
+  const successState: RequestState = {
+    status: "succeeded",
+    error: null,
+    data: responseData,
+  };
+  observer.update(successState);
+}
+
+// Handle API error
+function handleError(error: { status: string; message: any }) {
+  const errorState: RequestState = {
+    status: "failed",
+    error: error.message,
+    data: null,
+  };
+  observer.update(errorState);
+}
+
+// Handle API not found
+function handleNotFound(responseData: any) {
+  const notFoundState: RequestState = {
+    status: "not-found",
+    error: responseData.error,
+    data: null,
+  };
+  observer.update(notFoundState);
 }
 
 // Assign button event listeners
@@ -89,22 +127,10 @@ document.getElementById("createTodo")?.addEventListener("click", () => {
   ); // hardcoded todo data for simplicity
 });
 
-// Handle API response
-function handleResponse(responseData: any) {
-  const requestState: RequestState = {
-    status: "succeeded",
-    error: null,
-    data: responseData,
-  };
-  observer.update(requestState);
-}
+document.getElementById("posts1000")?.addEventListener("click", () => {
+  handleRequest(getPost(1000));
+});
 
-// Handle API error
-function handleError(error: { message: any }) {
-  const requestState: RequestState = {
-    status: "failed",
-    error: error.message,
-    data: null,
-  };
-  observer.update(requestState);
-}
+document.getElementById("privateResource")?.addEventListener("click", () => {
+  handleRequest(privateResource("invalid-token"));
+});

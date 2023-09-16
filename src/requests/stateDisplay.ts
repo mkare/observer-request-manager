@@ -37,10 +37,13 @@ export class StateDisplay {
         element.innerText = "Loading...";
         break;
       case "succeeded":
-        element.innerText = "Request succeeded!";
+        element.innerText = "Request succeed!";
         break;
       case "failed":
         element.innerText = "Request failed!";
+        break;
+      case "not-found":
+        element.innerText = "Not found!";
         break;
       default:
         break;
@@ -66,7 +69,11 @@ export class StateDisplay {
 
     if (state.status === "succeeded") {
       // Display data if the request succeeded
-      this.dataElement.innerText = JSON.stringify(state.data, null, 2);
+      if (typeof state.data === "string") {
+        this.dataElement.innerText = state.data;
+      } else {
+        this.dataElement.innerText = JSON.stringify(state.data, null, 2);
+      }
     } else {
       // Clear data for other states
       this.dataElement.innerText = "";

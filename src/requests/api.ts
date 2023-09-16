@@ -83,3 +83,14 @@ export const createTodo = (body: object) => {
     body
   );
 };
+
+export const privateResource = (token: string) => {
+  return requestManager.makeRequest(
+    RequestMethod.GET,
+    "https://reqres.in/api/protectedresource",
+    undefined,
+    {
+      Authorization: `Bearer ${token}`,
+    }
+  );
+};

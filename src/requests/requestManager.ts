@@ -1,5 +1,5 @@
 import { Observer, RequestState, ResponseData, RequestMethod } from "./types";
-
+import { ResponseManager } from "./responseManager";
 export class RequestManager {
   private observers: Observer[] = [];
   private state: RequestState = { status: "idle", error: null };
@@ -25,22 +25,27 @@ export class RequestManager {
     return this.state;
   }
 
-  async makeRequest(method: RequestMethod, url: string, body?: unknown) {
+  async makeRequest(
+    method: RequestMethod,
+    url: string,
+    body?: unknown,
+    headers?: HeadersInit
+  ) {
     this.setState({ status: "loading", error: null });
 
     const options: RequestInit = {
       method: method,
       headers: {
         "Content-Type": "application/json",
+        ...headers,
       },
       body: body ? JSON.stringify(body) : undefined,
     };
 
     try {
       const response = await fetch(url, options);
-      const data: ResponseData = await response.json();
-      this.setState({ status: "succeeded", data });
-      return data;
+      const responseData = await ResponseManager.handleResponse(response);
+      return responseData;
     } catch (error) {
       this.setState({ status: "failed", error: error.message });
     }
