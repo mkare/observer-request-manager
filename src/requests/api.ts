@@ -84,6 +84,11 @@ export const createTodo = (body: object) => {
   );
 };
 
+// This endpoint requires authentication
+// but it returns a 200 status code even if the token is invalid
+// so we can't use the ResponseManager.handleResponse method
+// to handle the response
+// TODO: find a better way to handle this
 export const privateResource = (token: string) => {
   return requestManager.makeRequest(
     RequestMethod.GET,
