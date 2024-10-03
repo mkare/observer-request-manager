@@ -10,7 +10,7 @@ import {
   deletePost,
   getTodos,
   createTodo,
-} from "./api";
+} from "./api/index";
 
 const stateDisplay = new StateDisplay();
 
