@@ -21,6 +21,34 @@ pre {
   padding: 1rem;
   overflow: auto;
   max-height: 60vh;
+  max-width: calc(100% - 3rem);
+}
+
+pre {
+  --sb-track-color: #22a6b3;
+  --sb-thumb-color: #077f9d;
+  --sb-size: 10px;
+}
+
+pre::-webkit-scrollbar {
+  width: var(--sb-size);
+  height: var(--sb-size);
+}
+
+pre::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  pre {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
 }
 
 #status {

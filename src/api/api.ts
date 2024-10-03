@@ -1,8 +1,30 @@
-import { RequestManager } from "./requestManager";
-import { RequestMethod } from "./types";
+// api.ts
+// Requests to the JSONPlaceholder API
+import { RequestManager } from "../requestManager/requestManager";
+import { RequestMethod, ResponseData } from "../requestManager/types";
 
+// Post interface
+export interface Post {
+  id?: number;
+  title: string;
+  body: string;
+  userId: number;
+}
+
+// Todo interface
+export interface Todo {
+  id?: number;
+  title: string;
+  completed: boolean;
+}
+
+// Instantiate RequestManager
 const requestManager = new RequestManager();
 
+// Request handler type
+type RequestHandler<T> = (body: T) => Promise<ResponseData>;
+
+// Fetch all posts
 export const getPosts = () => {
   return requestManager.makeRequest(
     RequestMethod.GET,
@@ -10,6 +32,7 @@ export const getPosts = () => {
   );
 };
 
+// Fetch a single post by ID
 export const getPost = (id: number) => {
   return requestManager.makeRequest(
     RequestMethod.GET,
@@ -17,6 +40,7 @@ export const getPost = (id: number) => {
   );
 };
 
+// Fetch comments for a specific post by ID
 export const getPostComments = (id: number) => {
   return requestManager.makeRequest(
     RequestMethod.GET,
@@ -24,6 +48,7 @@ export const getPostComments = (id: number) => {
   );
 };
 
+// Fetch comments filtered by post ID
 export const getCommentsByPostId = (postId: number) => {
   return requestManager.makeRequest(
     RequestMethod.GET,
@@ -31,7 +56,8 @@ export const getCommentsByPostId = (postId: number) => {
   );
 };
 
-export const createPost = (body: object) => {
+// Create a new post
+export const createPost: RequestHandler<Post> = async (body) => {
   return requestManager.makeRequest(
     RequestMethod.POST,
     "https://jsonplaceholder.typicode.com/posts",
@@ -39,6 +65,7 @@ export const createPost = (body: object) => {
   );
 };
 
+// Update an existing post by ID
 export const updatePost = (id: number, body: object) => {
   return requestManager.makeRequest(
     RequestMethod.PUT,
@@ -47,6 +74,7 @@ export const updatePost = (id: number, body: object) => {
   );
 };
 
+// Partially update an existing post by ID
 export const patchPost = (id: number, body: object) => {
   return requestManager.makeRequest(
     RequestMethod.PATCH,
@@ -55,6 +83,7 @@ export const patchPost = (id: number, body: object) => {
   );
 };
 
+// Delete a post by ID
 export const deletePost = (id: number) => {
   return requestManager.makeRequest(
     RequestMethod.DELETE,
@@ -62,6 +91,7 @@ export const deletePost = (id: number) => {
   );
 };
 
+// Fetch all todos
 export const getTodos = () => {
   return requestManager.makeRequest(
     RequestMethod.GET,
@@ -69,6 +99,7 @@ export const getTodos = () => {
   );
 };
 
+// Fetch a single todo by ID
 export const getTodo = (id: number) => {
   return requestManager.makeRequest(
     RequestMethod.GET,
@@ -76,6 +107,7 @@ export const getTodo = (id: number) => {
   );
 };
 
+// Create a new todo
 export const createTodo = (body: object) => {
   return requestManager.makeRequest(
     RequestMethod.POST,

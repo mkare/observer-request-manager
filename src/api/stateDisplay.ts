@@ -1,4 +1,5 @@
-import { RequestState } from "./types";
+// stateDisplay.ts
+import { RequestState } from "../requestManager/types";
 
 export class StateDisplay {
   private parentElement: HTMLElement;

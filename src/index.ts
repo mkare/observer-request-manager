@@ -1,6 +1,6 @@
-import { DataObserver } from "./requests/observer";
-import { RequestState } from "./requests/types";
-import { StateDisplay } from "./requests/stateDisplay";
+import { DataObserver } from "./requestManager/observer";
+import { RequestState, RequestStatus } from "./requestManager/types";
+import { StateDisplay } from "./api/stateDisplay";
 import {
   getPosts,
   getPostComments,
@@ -10,7 +10,7 @@ import {
   deletePost,
   getTodos,
   createTodo,
-} from "./requests/api";
+} from "./api";
 
 const stateDisplay = new StateDisplay();
 
@@ -25,7 +25,7 @@ const observer = new DataObserver((state: RequestState) => {
 // Handle API request
 function handleRequest(promise: Promise<any>) {
   const loadingState: RequestState = {
-    status: "loading",
+    status: RequestStatus.LOADING,
     error: null,
     data: null,
   };
@@ -92,7 +92,7 @@ document.getElementById("createTodo")?.addEventListener("click", () => {
 // Handle API response
 function handleResponse(responseData: any) {
   const requestState: RequestState = {
-    status: "succeeded",
+    status: RequestStatus.SUCCEEDED,
     error: null,
     data: responseData,
   };
@@ -102,7 +102,7 @@ function handleResponse(responseData: any) {
 // Handle API error
 function handleError(error: { message: any }) {
   const requestState: RequestState = {
-    status: "failed",
+    status: RequestStatus.FAILED,
     error: error.message,
     data: null,
   };
