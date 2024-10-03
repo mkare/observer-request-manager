@@ -7,7 +7,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "rollup --config rollup.config.cjs"
+    "build": "rollup --config rollup.config.cjs",
+    "serve": "lite-server"
   },
   "devDependencies": {
     "@open-wc/building-rollup": "^2.2.3",
@@ -15,9 +16,17 @@
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-typescript": "^11.1.1",
     "deepmerge": "^4.3.1",
+    "lite-server": "^2.6.1",
     "rimraf": "^5.0.1",
-    "rollup": "^3.22.0",
+    "rollup": "^2.79.2",
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "^5.0.4"
+  },
+  "lite": {
+    "baseDir": "dist",
+    "open": true,
+    "files": [
+      "dist/**/*.{html,htm,css,js}"
+    ]
   }
 }
